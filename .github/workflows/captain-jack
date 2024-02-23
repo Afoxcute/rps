@@ -1,0 +1,25 @@
+name: Build App
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+  NODE_VERSION: 18.X
+  RUN_NUMBER: $ {{ github.run_number }}
+
+jobs:
+
+    Build-it:
+     runs-on: [self_hosted, development, regina-bot]
+     steps:
+        - uses: actions/checkout@v1
+
+        - uses: actions/setup-node@v1
+          with:
+            node-version: "18.x"
+
+        - name: Run Build Script
+          run: |
+            bamboo/build-push.sh
